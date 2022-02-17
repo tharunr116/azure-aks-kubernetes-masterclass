@@ -1,7 +1,7 @@
 # Simple Key value Pairs
 person: # Dictionary
-  name: kalyan
-  age: 23
+  name: Tharun
+  age: 29
   city: Hyderabd
   hobbies: # List
     - cooking

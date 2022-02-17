@@ -1,7 +1,10 @@
-apiVersion: 
-kind: 
+apiVersion: v1
+kind: Pod
 metadata:
-
+  name: myapp-pod
+  labels:
+    app: myapp
+  namespace: default
 spec:
     
 # Types of Kubernetes Objects
