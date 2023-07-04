@@ -1,31 +1,48 @@
 # Create AKS Cluster
 
 ## Step-01: Introduction
-- Understand about AKS Cluster
-- Discuss about Kubernetes Architecture from AKS Cluster perspective
+- Create Azure AKS Cluster
+- Connect to Azure AKS Cluster using Azure Cloud Shell
+- Explore Azure AKS Cluster Resources
+- Install Azure CLI and Connect to Azure AKS Cluster using Azure CLI on local desktop
+- Deploy Sample Application on AKS Cluster and test
+
 
 ## Step-02: Create AKS Cluster
 - Create Kubernetes Cluster
 - **Basics**
-  - **Subscription:** Free Trial
+  - **Subscription:** StackSimplify-Paid-Subscription
   - **Resource Group:** Creat New: aks-rg1
+  - **Cluster preset configuration:** Standard
   - **Kubernetes Cluster Name:** aksdemo1
   - **Region:** (US) Central US
+  - **Availability zones:** Zones 1, 2, 3
+  - **AKS Pricing Tier:** Free
   - **Kubernetes Version:** Select what ever is latest stable version
+  - **Automatic upgrade:** Enabled with patch (recommended)
   - **Node Size:** Standard DS2 v2 (Default one)
-  - **Node Count:** 1
+  - **Scale method:** Autoscale
+  - **Node Count range:** 1 to 5
 - **Node Pools**
   - leave to defaults
-- **Authentication**
-  - Authentication method: 	System-assigned managed identity
+- **Access**
+  - **Authentication and Authorization:** 	Local accounts with Kubernetes RBAC
   - Rest all leave to defaults
 - **Networking**
-  - **Network Configuration:** Advanced
-  - **Network Policy:** Azure
-  - Rest all leave to defaults
+  - **Network Configuration:** Azure CNI
+  - Review all the auto-populated details 
+    - Virtual Network
+    - Cluster Subnet
+    - Kubernetes Service address range
+    - Kubernetes DNS Service IP Address
+    - DNS Name prefix
+  - **Traffic routing:** leave to defaults
+  - **Security:** Leave to defaults
 - **Integrations**
-  - Azure Container Registry: None
-  - leave to defaults
+  - **Azure Container Registry:** None
+  - All leave to defaults
+- **Advanced**
+  -  All leave to defaults
 - **Tags**
   - leave to defaults
 - **Review + Create**
@@ -34,7 +51,7 @@
 
 ## Step-03: Cloud Shell - Configure kubectl to connect to AKS Cluster
 - Go to https://shell.azure.com
-```
+```t
 # Template
 az aks get-credentials --resource-group <Resource-Group-Name> --name <Cluster-Name>
 
@@ -47,7 +64,7 @@ kubectl get nodes -o wide
 ```
 
 ## Step-04: Explore Cluster Control Plane and Workload inside that
-```
+```t
 # List Namespaces
 kubectl get namespaces
 kubectl get ns
@@ -66,27 +83,40 @@ kubectl get all --all-namespaces
   - Access Control (IAM)
   - Security
   - Diagnose and solver problems
+  - Microsoft Defender for Cloud
+- **Kubernetes Resources**  
+  - Namespaces
+  - Workloads
+  - Services and Ingress
+  - Storage
+  - Configuration
 - **Settings**
   - Node Pools
-  - Upgrade
-  - Scale
-  - Networking
-  - DevSpaces
-  - Deployment Center
+  - Cluster Configuration
+  - Extensions + Applications
+  - Backup (preview)
+  - Open Service Mesh
+  - GitOps
+  - Automated Deployments (preview)
   - Policies
+  - Properties
+  - Locks
 - **Monitoring**
   - Insights
   - Alerts
   - Metrics
-  - and many more 
-- **VM Scale Sets**
-  - Verify Azure VM Instances
-  - Verify if **Enhanced Networking is enabled or not**  
+  - Diagnostic Settings
+  - Advisor Recommendations
+  - Logs
+  - Workbooks
+- **Automation** 
+  - Tasks
+  - Export Template    
 
 
 
 ## Step-06: Local Desktop - Install Azure CLI and Azure AKS CLI
-```
+```t
 # Install Azure CLI (MAC)
 brew update && brew install azure-cli
 
@@ -111,7 +141,7 @@ kubectl get nodes -o wide
 - Don't worry about what is present in these two files for now. 
 - By the time we complete **Kubernetes Fundamentals** sections, you will be an expert in writing Kubernetes manifest in YAML.
 - For now just focus on result. 
-```
+```t
 # Deploy Application
 kubectl apply -f kube-manifests/
 
@@ -129,7 +159,7 @@ http://<External-IP-from-get-service-output>
 ```
 
 ## Step-07: Clean-Up
-```
+```t
 # Delete Applications
 kubectl delete -f kube-manifests/
 ```
